@@ -1,0 +1,37 @@
+module.exports = {
+  env: {
+    browser: true,
+    commonjs: true,
+    es2021: true,
+    mocha: true,
+    node: true,
+  },
+  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+  parserOptions: {
+    ecmaVersion: 12,
+  },
+  rules: {
+    'no-unused-vars': 'warn',
+    'no-console': 'off',
+    'func-names': 'off',
+    'no-process-exit': 'off',
+    'object-shorthand': 'off',
+    'class-methods-use-this': 'off',
+    'no-underscore-dangle': 'off',
+    'max-len': ['warn', { code: 120 }],
+    'no-param-reassign': 'off',
+    'no-use-before-define': ['error', { functions: false, classes: true }],
+    'no-plusplus': 'off',
+    'no-await-in-loop': 'off',
+    'no-restricted-syntax': 'off',
+    'prettier/prettier': 'warn',
+  },
+  globals: {
+    ethers: 'readonly',
+    upgrades: 'readonly',
+    describe: 'readonly',
+    it: 'readonly',
+    beforeEach: 'readonly',
+    expect: 'readonly',
+  },
+};

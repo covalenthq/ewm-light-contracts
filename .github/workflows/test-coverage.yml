@@ -1,0 +1,64 @@
+name: test-coverage
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+      - 'develop'
+
+env:
+  ERIGON_NODE: ${{ secrets.ERIGON_NODE }}
+  ETHEREUM_CQT_ADDRESS: ${{ secrets.ETHEREUM_CQT_ADDRESS }}
+  SEPOLIA_NODE: 'not required'
+  NODE_TLS_REJECT_UNAUTHORIZED: 0
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20.10.0
+
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: '**/node_modules'
+          key: npm-v2-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: npm-v2-
+
+      - name: Run Npm CI
+        run: npm ci
+        if: steps.cache.outputs.cache-hit != 'true'
+
+      - name: Run .js/.sol Linters (eslint, solhint, prettier)
+        run: npm run lint:js && npm run lint:sol
+
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20.10.0
+      - uses: actions/cache@v3
+        id: cache
+        with:
+          path: '**/node_modules'
+          key: npm-v2-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: npm-v2-
+      - run: npm ci
+        if: steps.cache.outputs.cache-hit != 'true'
+      - run: npm run coverage
+        env:
+          NODE_OPTIONS: --max_old_space_size=4096
+          NODE_TLS_REJECT_UNAUTHORIZED: 0
+      - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

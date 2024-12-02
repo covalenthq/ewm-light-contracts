@@ -1,0 +1,6 @@
+[
+  "event UpdateUser(uint256 indexed,address indexed,uint64)",
+  "function setUser(uint256,address)",
+  "function userExpires(uint256) view returns (uint64)",
+  "function userOf(uint256) view returns (address)"
+]

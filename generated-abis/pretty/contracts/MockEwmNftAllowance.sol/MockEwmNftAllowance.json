@@ -1,0 +1,8 @@
+[
+  "function setStakePrice(uint256)",
+  "function setTotalNftToMint(address,uint256)",
+  "function setTotalStakeReceived(uint256)",
+  "function stakePrice() view returns (uint256)",
+  "function totalNftToMint(address) view returns (uint256)",
+  "function totalStakeReceived() view returns (uint256)"
+]
