@@ -1,4 +1,4 @@
-#ewm-light-contracts
+# ewm-light-contracts
 
 EWM light clients operator-controller NFT contracts, enabling NFT claim/mint, LC registration/delegation, rewards calculation and redemption on any EVM chain based on the [ERC4907](https://eips.ethereum.org/EIPS/eip-4907) non-transferrable "rental-nft" standard.
 
@@ -154,3 +154,44 @@ This deployment story outlines the process of setting up the entire NFT ecosyste
    - Allow NFT holders to redeem their rewards
    - Release stakes for expired NFTs
 
+
+```bash
+# deploy all the necessary contracts
+npx hardhat run scripts/deployCxtTokenFaucet.js --network ${network}
+npx hardhat run scripts/deployNftController.js --network ${network}
+npx hardhat run scripts/deployNftClaim.js --network ${network}
+npx hardhat run scripts/deployNftAllowance.js --network ${network}
+
+# set contract metadata for use
+npx hardhat run scripts/depositControllerRewardTokens.js --network ${network}
+npx hardhat run scripts/setControllerNftExpiryRange.js --network ${network}
+npx hardhat run scripts/setControllerNftBaseUrl.js --network ${network}
+
+## set contracts for participation
+npx hardhat run scripts/setClaimAllowanceContractsArray.js --network ${network}
+npx hardhat run scripts/unpauseClaimContract.js --network ${network}
+npx hardhat run scripts/distributeCxtFaucetToken.js --network ${network}
+npx hardhat run scripts/setAllowanceWhitelistRootIntegerAllocation.js --network ${network}
+
+# extras participants fns for staking and operations
+npx hardhat run scripts/executeWhitelistedAllowance.js --network ${network}
+
+## set for nft mint distribution
+npx hardhat run scripts/setControllerMinterAdmin.js --network ${network}
+npx hardhat run scripts/setControllerTransferWhitelistAndTime.js --network ${network}
+npx hardhat run scripts/executeAdminBatchClaimAll.js --network ${network} or npx hardhat run scripts/executeAdminBatchClaimArray.js --network ${network}
+npx hardhat run scripts/pauseClaimContract.js --network ${network}
+
+## reward nft holders
+npx hardhat run scripts/executeSetUserDelegateAndExpires.js --network ${network}
+npx hardhat run scripts/rewardNftHolders.js --network ${network}
+npx hardhat run scripts/redeemAllNftRewards.js --network ${network}
+
+## post nfts expiry participants fns
+npx hardhat run scripts/releaseStakeForExpiredNfts.js --network ${network}
+
+# extras admin fns
+npx hardhat run scripts/setClaimAdmin.js --network ${network}
+npx hardhat run scripts/getAllMetadata.js --network ${network}
+npx hardhat run scripts/setAllowanceExpiryTime.js --network ${network}
+```
