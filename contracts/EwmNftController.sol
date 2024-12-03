@@ -437,7 +437,6 @@ contract EwmNftController is Ownable2StepUpgradeable, ERC721EnumerableUpgradeabl
     uint256[] memory tokenIds = tokenIdsOfOwnerByAmount(msg.sender, totalTokens);
 
     uint256 totalRedeemable = 0;
-    uint256 validTokenCount = 0;
 
     for (uint256 i = 0; i < tokenIds.length; i++) {
       uint256 tokenId = tokenIds[i];
@@ -445,7 +444,6 @@ contract EwmNftController is Ownable2StepUpgradeable, ERC721EnumerableUpgradeabl
 
       if (redeemable > 0) {
         totalRedeemable += redeemable;
-        validTokenCount++;
       }
     }
 
@@ -464,10 +462,7 @@ contract EwmNftController is Ownable2StepUpgradeable, ERC721EnumerableUpgradeabl
   ) internal {
     for (uint256 i = 0; i < tokenIds.length; i++) {
       UserInfo storage info = _users[tokenIds[i]];
-      address currentUser = userOf(tokenIds[i]);
-      if (currentUser != address(0)) {
-        info.redeemable = 0; // Reset redeemable amount only for non-expired tokens
-      }
+      info.redeemable = 0; // Reset redeemable amount for all tokens
     }
 
     _transferFromContract(owner, totalRedeemable);

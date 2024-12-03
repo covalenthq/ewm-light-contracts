@@ -242,7 +242,7 @@ describe('EwmNftController - Redeem Rewards', () => {
     // Attempt to redeem rewards
     await expect(controllerContract.connect(holder).redeemRewards())
       .to.emit(controllerContract, 'EventRewardsRedeemed')
-      .withArgs(holder.address, REWARD_REDEEM_THRESHOLD.mul(3));
+      .withArgs(holder.address, REWARD_REDEEM_THRESHOLD.mul(1));
 
     const finalUserInfo = await controllerContract.getUserInfo(9);
     // console.log('Final User Info:', finalUserInfo);
