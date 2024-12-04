@@ -154,7 +154,6 @@ This deployment story outlines the process of setting up the entire NFT ecosyste
    - Allow NFT holders to redeem their rewards
    - Release stakes for expired NFTs
 
-
 ```bash
 # deploy all the necessary contracts
 npx hardhat run scripts/deployCxtTokenFaucet.js --network ${network}
