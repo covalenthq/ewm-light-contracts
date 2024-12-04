@@ -436,14 +436,14 @@ contract EwmNftController is Ownable2StepUpgradeable, ERC721EnumerableUpgradeabl
     require(totalTokens > 0, 'No tokens owned');
     uint256[] memory tokenIds = tokenIdsOfOwnerByAmount(msg.sender, totalTokens);
 
-    uint256 totalRedeemable = 0;
+    uint256 totalRedeemable;
+    UserInfo storage info;
 
     for (uint256 i = 0; i < tokenIds.length; i++) {
-      uint256 tokenId = tokenIds[i];
-      uint256 redeemable = userReedemable(tokenId);
-
-      if (redeemable > 0) {
-        totalRedeemable += redeemable;
+      info = _users[tokenIds[i]];
+      if (info.redeemable > 0) {
+        totalRedeemable += info.redeemable;
+        info.redeemable = 0;
       }
     }
 
@@ -452,22 +452,8 @@ contract EwmNftController is Ownable2StepUpgradeable, ERC721EnumerableUpgradeabl
       'Total redeemable amount must be higher than redeem threshold'
     );
 
-    _redeemRewards(msg.sender, totalRedeemable, tokenIds);
-  }
-
-  function _redeemRewards(
-    address owner,
-    uint256 totalRedeemable,
-    uint256[] memory tokenIds
-  ) internal {
-    for (uint256 i = 0; i < tokenIds.length; i++) {
-      UserInfo storage info = _users[tokenIds[i]];
-      info.redeemable = 0; // Reset redeemable amount for all tokens
-    }
-
-    _transferFromContract(owner, totalRedeemable);
-
-    emit EventRewardsRedeemed(owner, totalRedeemable);
+    _transferFromContract(msg.sender, totalRedeemable);
+    emit EventRewardsRedeemed(msg.sender, totalRedeemable);
   }
 
   function getMetadata()
