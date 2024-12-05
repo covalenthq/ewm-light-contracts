@@ -6,7 +6,7 @@ The security of our users and the integrity of the Covalent EWM light-client pro
 
 If you discover a security vulnerability or issue within the Covalent EWM light-client project or its associated smart contracts, please report it to us responsibly by following these steps:
 
-1. Send an email to our security team at <pranay@covalenthq.com>, <krishnateja@covalenthq.com> & <rodrigo@covalenthq.com> with a line on telegram [t.me/noslav](https://t.me/noslav) for quick communication with the following details:
+1. Send an email to our security team at <security@covalenthq.com> with a line on telegram [t.me/noslav](https://t.me/noslav) or [discord](https://discord.com/channels/715804406842392586/1314274042148294758) for quick communication with the following details:
 
    - A clear and concise description of the vulnerability or issue.
    - Steps to reproduce the vulnerability or issue.
@@ -54,6 +54,6 @@ We kindly request that you follow responsible disclosure practices when reportin
 
 ## Contact
 
-If you have any questions or concerns regarding the security of the Covalent EWM light-client project, please contact us at <pranay@covalenthq.com>.
+If you have any questions or concerns regarding the security of the Covalent EWM light-client project, please contact us at [discord](https://discord.com/channels/715804406842392586/1314274042148294758).
 
 We appreciate your efforts in helping us maintain the security and integrity of our project. Thank you for your responsible disclosure and collaboration.
